@@ -2,3 +2,4 @@ rootProject.name = 'FBSR'
 
 include 'Discord-Core-Bot-Apple'
 include 'Java-Factorio-Data-Wrapper'
+include 'FactorioBlueprintStringRenderer'
