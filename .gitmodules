@@ -1,0 +1,8 @@
+[submodule "Java-Factorio-Data-Wrapper"]
+	path = Java-Factorio-Data-Wrapper
+	url = https://github.com/acid1103/Java-Factorio-Data-Wrapper
+	branch = gradle
+[submodule "Discord-Core-Bot-Apple"]
+	path = Discord-Core-Bot-Apple
+	url = https://github.com/acid1103/Discord-Core-Bot-Apple
+	branch = gradle
