@@ -1,0 +1,9 @@
+/bin/
+/target/
+/config.json
+/guilds.json
+/.classpath
+/.gradle/
+/.project
+/.settings
+/build/

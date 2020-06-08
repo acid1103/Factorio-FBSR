@@ -1,0 +1,67 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import groovy.transform.Field
+import groovy.json.JsonSlurper
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
+    }
+}
+
+apply plugin: 'java-library'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation 'org.luaj:luaj-jse:3.0.1'
+    implementation 'org.json:json:20160810'
+    implementation 'com.google.guava:guava:21.0'
+    implementation 'com.diffplug.durian:durian:3.4.0'
+}
+
+@Field final String APP_PACKAGE = "com.demod.factorio.apps"
+
+task executeApp(type: JavaExec) {
+    group = "Execution"
+    description = "Run the app specified in config.json."
+    classpath = sourceSets.main.runtimeClasspath
+    if (configExists())
+        main = getMainClassFromConfig()
+}
+
+task packageApp(type: ShadowJar) {
+    group = "Build"
+    description = "Builds an executable fat jar for the app specified in config.json."
+    if (configExists()) {
+        manifest {
+            attributes([
+                "Main-Class": getMainClassFromConfig()
+            ])
+        }
+        baseName = getPropertyFromConfig("app")
+        classifier = ""
+    }
+    from sourceSets.main.runtimeClasspath
+    configurations = [ project.configurations.runtimeClasspath ]
+}
+
+def getMainClassFromConfig() {
+    def app = getPropertyFromConfig("app")
+    return APP_PACKAGE + "." + app
+}
+
+def getPropertyFromConfig(key) {
+    def slurper = new JsonSlurper()
+    def json = slurper.parse(file("config.json"))
+    return json[key]
+}
+
+def configExists() {
+    return file("config.json").exists()
+}

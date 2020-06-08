@@ -1,0 +1,11 @@
+apply plugin: 'java-library'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation 'net.dv8tion:JDA:3.8.3_463'
+    implementation 'com.google.guava:guava:20.0'
+    implementation 'org.json:json:20160810'
+}
