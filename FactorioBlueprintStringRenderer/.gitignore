@@ -8,3 +8,5 @@
 /log.txt
 /mods/
 /mods_disabled/
+/.gradle/
+/build/
